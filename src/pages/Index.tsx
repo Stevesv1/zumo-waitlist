@@ -72,7 +72,6 @@ const Index = () => {
         }
       } else {
         setIsSubmitted(true);
-        // No success toast notification as requested
       }
     } catch (error) {
       console.error("Error submitting waitlist:", error);
@@ -88,7 +87,7 @@ const Index = () => {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
+      <div className="h-screen w-full fixed inset-0 overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 z-0">
           <video
@@ -110,8 +109,8 @@ const Index = () => {
         </div>
 
         {/* Success Content */}
-        <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-          <div className="text-center space-y-6 max-w-md mx-auto">
+        <div className="relative z-10 flex items-center justify-center h-full p-4">
+          <div className="text-center max-w-sm mx-auto w-full">
             <div className="glass-card p-6 md:p-8">
               <p className="text-base md:text-lg text-white">
                 🎉 You're all set! Follow us on Twitter for the latest updates.
@@ -124,7 +123,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden cursor-custom">
+    <div className="h-screen w-full fixed inset-0 overflow-hidden cursor-custom">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -146,7 +145,7 @@ const Index = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+      <div className="relative z-10 flex items-center justify-center h-full p-4">
         <div className="text-center space-y-6 md:space-y-8 max-w-sm md:max-w-md mx-auto w-full">
           {/* Logo/Brand */}
           <div className="space-y-3 md:space-y-4 mb-8 md:mb-12">
