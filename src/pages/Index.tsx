@@ -65,10 +65,7 @@ const Index = () => {
         }
       } else {
         setIsSubmitted(true);
-        toast({
-          title: "Success!",
-          description: "You've been added to our waitlist.",
-        });
+        // No success toast notification as requested
       }
     } catch (error) {
       console.error("Error submitting waitlist:", error);
@@ -102,17 +99,8 @@ const Index = () => {
         {/* Success Content */}
         <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
           <div className="text-center space-y-6 max-w-md mx-auto">
-            <div className="w-20 h-20 mx-auto mb-6 bg-green-500/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-green-500/30">
-              <CheckCircle className="w-10 h-10 text-green-400" />
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Welcome to the Waitlist!
-            </h1>
-            <p className="text-gray-300 text-lg">
-              Thanks for joining! We'll keep you updated on our progress.
-            </p>
-            <div className="glass-card p-6 mt-8">
-              <p className="text-sm text-gray-400">
+            <div className="glass-card p-8">
+              <p className="text-lg text-white">
                 🎉 You're all set! Follow us on Twitter for the latest updates.
               </p>
             </div>
