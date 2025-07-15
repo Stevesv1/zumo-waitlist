@@ -154,7 +154,7 @@ const Index = () => {
         if (error.code === "23505") {
           toast({
             title: "Already registered",
-            description: "This email is already on our waitlist!",
+            description: "This email is already registered!",
             variant: "destructive",
           });
         } else {
@@ -210,7 +210,7 @@ const Index = () => {
                 <X className="w-6 h-6" />
               </button>
               <p className="text-base md:text-lg font-semibold text-black drop-shadow-sm">
-                🎉 You're all set! Follow us on Twitter for the latest updates.
+                🎉 Congrats! You successfully joined Zumo Labs waitlist.
               </p>
             </div>
           </div>
