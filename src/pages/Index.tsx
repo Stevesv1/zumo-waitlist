@@ -1,10 +1,11 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle, Twitter, Mail, Loader2, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Progress } from "@/components/ui/progress";
 
 const Index = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,64 @@ const Index = () => {
   const [showWaitlistForm, setShowWaitlistForm] = useState(false);
   const [emailError, setEmailError] = useState("");
   const { toast } = useToast();
+  const [bgLoaded, setBgLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [minTimePassed, setMinTimePassed] = useState(false);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    let finished = false;
+    const img = new window.Image();
+    img.src = "/bg.jpg";
+    img.onload = () => {
+      if (!finished) {
+        setProgress(100);
+        finished = true;
+      }
+    };
+    img.onerror = () => {
+      if (!finished) {
+        setProgress(100);
+        finished = true;
+      }
+    };
+    // Simulate progress for style
+    let fakeProgress = 0;
+    interval = setInterval(() => {
+      fakeProgress += Math.random() * 10 + 5;
+      if (fakeProgress < 90) {
+        setProgress(Math.min(fakeProgress, 90));
+      }
+    }, 120);
+    // Minimum 3 seconds loading
+    const minTimer = setTimeout(() => setMinTimePassed(true), 3000);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(minTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    if ((progress >= 100 || minTimePassed) && minTimePassed) {
+      setBgLoaded(true);
+    }
+  }, [progress, minTimePassed]);
+
+  if (!bgLoaded) {
+    return (
+      <div className="h-screen w-full flex flex-col items-center justify-center bg-black">
+        <span className="text-white text-2xl mb-6 animate-pulse">Loading...</span>
+        <div className="w-64">
+          <div className="relative w-full h-4 rounded-full bg-gradient-to-r from-[#232526] to-[#414345] shadow-lg overflow-hidden">
+            <div
+              className="absolute left-0 top-0 h-full rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 shadow-lg transition-all duration-500 ease-out animate-glow"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const handleTwitterFollow = () => {
     window.open("https://x.com/Zumolabs_xyz", "_blank");
@@ -137,7 +196,7 @@ const Index = () => {
         {/* Success Content */}
         <div className="relative z-10 flex items-center justify-center h-full p-4">
           <div className="text-center max-w-sm mx-auto w-full relative">
-            <div className="glass-card p-6 md:p-8">
+            <div className="bg-white bg-opacity-90 border border-gray-200 rounded-2xl shadow-2xl p-8 md:p-10 flex flex-col items-center justify-center stylish-success-box">
               {/* Close Button */}
               <button
                 onClick={() => {
@@ -146,11 +205,11 @@ const Index = () => {
                   setTwitterHandle("");
                   setIsFollowing(false);
                 }}
-                className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
+                className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors"
               >
                 <X className="w-6 h-6" />
               </button>
-              <p className="text-base md:text-lg text-white">
+              <p className="text-base md:text-lg font-semibold text-black drop-shadow-sm">
                 🎉 You're all set! Follow us on Twitter for the latest updates.
               </p>
             </div>
@@ -179,21 +238,7 @@ const Index = () => {
 
       {/* Main Content - Coming Soon */}
       <div className="relative z-10 flex items-center justify-center h-full p-4">
-        <div className="text-center transform translate-y-12 md:translate-y-16 lg:translate-y-20 -translate-x-4 md:-translate-x-8 lg:-translate-x-8">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white tracking-tight drop-shadow-lg">
-            Coming Soon
-          </h1>
-        </div>
-      </div>
-
-      {/* Footer - Zumo Labs and REDACTED */}
-      <div className="fixed z-20 bottom-6 left-6 flex flex-col items-start">
-        <h2 className="text-3xl font-bold text-white mb-1 drop-shadow-lg [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
-          Zumo Labs
-        </h2>
-        <p className="text-base font-bold text-red-600 drop-shadow-lg">
-          [REDACTED]
-        </p>
+        <h1 className="text-4xl md:text-6xl font-bold text-black text-center">Coming Soon</h1>
       </div>
 
       {/* Waitlist Form Modal */}
@@ -292,6 +337,11 @@ const Index = () => {
       <div className="hidden md:block absolute top-10 left-10 w-20 h-20 bg-purple-500/10 rounded-full blur-xl animate-pulse"></div>
       <div className="hidden md:block absolute bottom-10 right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-xl animate-pulse delay-1000"></div>
       <div className="hidden md:block absolute top-1/2 left-0 w-16 h-16 bg-pink-500/10 rounded-full blur-xl animate-pulse delay-500"></div>
+
+      {/* All rights reserved footer */}
+      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-20 text-center">
+        <p className="text-xs text-black">&copy; {new Date().getFullYear()} Zumo Labs. All rights reserved.</p>
+      </div>
     </div>
   );
 };
