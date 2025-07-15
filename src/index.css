@@ -84,23 +84,12 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Montserrat', sans-serif;
+    cursor: url("data:image/svg+xml,%3csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M2 2l16 6-6 2-2 6z' fill='%23ff0000' fill-opacity='0.8'/%3e%3c/svg%3e") 2 2, auto;
   }
 }
 
-/* Custom cursor for macOS feel */
-.cursor-custom {
-  cursor: url("data:image/svg+xml,%3csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M2 2l16 6-6 2-2 6z' fill='%23ffffff' fill-opacity='0.8'/%3e%3c/svg%3e") 2 2, auto;
-}
-
-.cursor-custom * {
-  cursor: inherit;
-}
-
-.cursor-custom button, 
-.cursor-custom a, 
-.cursor-custom input {
-  cursor: url("data:image/svg+xml,%3csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='10' cy='10' r='8' fill='%23ffffff' fill-opacity='0.8'/%3e%3c/svg%3e") 10 10, pointer;
-}
+/* Custom cursor for macOS feel - now in red */
+/* Removed .cursor-custom class if not needed anymore */
 
 /* Glass morphism styles */
 .glass-card {
@@ -271,4 +260,9 @@
   .animate-pulse {
     animation: none;
   }
+}
+
+/* Stylish pointer cursor for links, buttons, and inputs */
+a, button, input[type="button"], input[type="submit"], label, select {
+  cursor: url("data:image/svg+xml,%3csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='10' cy='10' r='8' fill='%23ff0000' fill-opacity='0.8'/%3e%3c/svg%3e") 10 10, pointer;
 }
