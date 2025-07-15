@@ -40,3 +40,15 @@
 .read-the-docs {
   color: #888;
 }
+
+.stylish-success-box {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 60%, rgba(240,240,255,0.85) 100%);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 8px rgba(139,92,246,0.08);
+  border: 1.5px solid rgba(139,92,246,0.13);
+  backdrop-filter: blur(16px);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.stylish-success-box:hover {
+  box-shadow: 0 12px 40px rgba(139,92,246,0.18), 0 2px 12px rgba(139,92,246,0.13);
+  transform: translateY(-2px) scale(1.02);
+}
